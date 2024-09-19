@@ -1,0 +1,12 @@
+<% if (typeof(successMessage)!='undefined' && successMessage.length> 0) { %>
+  <div class="alert alert-success alert-dismissible fade show">
+    <%= successMessage[0] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+    <% if (typeof(errorMessage)!='undefined' && errorMessage.length> 0) { %>
+      <div class="alert alert-danger alert-dismissible fade show">
+        <%= errorMessage[0] %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>

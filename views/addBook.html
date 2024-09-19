@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books Inventory</title>
+  <!-- import bootstrap css -->
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <% 
+  let titleError = '', authorError = '', genreError = '', publication_dateError = '', isbnError = '';
+  if (typeof(errors) !== 'undefined') {
+    titleError = errors.title || '';
+    authorError = errors.author || '';
+    genreError = errors.genre || '';
+    publication_dateError = errors.publication_date || '';
+    isbnError = errors.isbn || '';
+  }
+
+  let title = '', author = '', selectedGenre = '', publication_date = '', isbn = '';
+  if (typeof(bookData) !== 'undefined') {
+    title = bookData.title || '';
+    author = bookData.author || '';
+    selectedGenre = bookData.genre || '';
+    publication_date = bookData.publication_date || '';
+    isbn = bookData.isbn || '';
+  }
+%>
+  <%- include('layouts/header.html') %>
+
+    <main class="container mt-5">
+      <%- include('layouts/error.html') %>
+        <h1 class="h1 text-center">Add a New Book</h1>
+
+        <form action="/addBook" method="POST">
+          <div class="form-group mb-3">
+            <label for="title">Title</label>
+            <input type="text" class="form-control <%= titleError ? 'is-invalid' : '' %>" id="title" name="title"
+              value="<%= title %>" placeholder="Enter book title">
+            <% if(titleError){ %>
+              <div class="invalid-feedback">
+                <%= titleError %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="author">Author</label>
+            <input type="text" class="form-control <%= authorError ? 'is-invalid' : '' %>" id="author" name="author"
+              value="<%= author %>" placeholder="Enter author name">
+            <% if(authorError){ %>
+              <div class="invalid-feedback">
+                <%= authorError %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="genre">Genre</label>
+            <select class="form-control <%= genreError ? 'is-invalid' : '' %>" name="genre">
+              <option value="">Select a Genre</option>
+              <% genres.forEach(genre=> { %>
+                <option value="<%= genre %>" <%=genre===selectedGenre ? 'selected' : '' %>>
+                  <%= genre %>
+                </option>
+                <% }); %>
+            </select>
+            <% if(genreError){ %>
+              <div class="invalid-feedback">
+                <%= genreError %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="publication_date">Publication Date</label>
+            <input type="date" class="form-control <%= publication_dateError ? 'is-invalid' : '' %>"
+              id="publication_date" name="publication_date" value="<%= publication_date %>">
+            <% if(publication_dateError){ %>
+              <div class="invalid-feedback">
+                <%= publication_dateError %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="isbn">ISBN</label>
+            <input type="text" class="form-control <%= isbnError ? 'is-invalid' : '' %>" id="isbn" name="isbn"
+              placeholder="Enter ISBN" value="<%= isbn %>">
+            <% if(isbnError){ %>
+              <div class=" invalid-feedback">
+                <%= isbnError %>
+              </div>
+              <% } %>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary me-3">Add Book</button>
+            <a href="/books" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+
+    </main>
+
+    <%- include('layouts/footer.html') %>
+
+      <!-- import jquery and bootstrap.js-->
+      <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+      <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

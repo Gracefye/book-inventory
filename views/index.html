@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books Inventory</title>
+  <!-- import bootstrap css -->
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <%- include('layouts/header.html') %>
+
+    <!-- Welcome Section -->
+    <main class="container mt-5 text-center">
+      <%- include('layouts/error.html') %>
+
+        <h1 class="h1">Welcome to Book Inventory!</h1>
+        <p class="lead">Manage your book collection with ease.</p>
+        <!-- Buttons for Navigation -->
+        <div class="mt-5 mb-5">
+          <a href="/books" class="btn btn-primary btn-lg">View Book List</a>
+          <a href="/addBook" class="btn btn-success btn-lg">Add a New Book</a>
+        </div>
+    </main>
+
+    <%- include('layouts/footer.html') %>
+
+      <!-- import jquery and bootstrap.js-->
+      <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+      <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books List</title>
+  <!-- import bootstrap css -->
+  <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <%- include('layouts/header.html') %>
+
+    <main class="container mt-5">
+      <%- include('layouts/error.html') %>
+        <h1 class="h1 text-center">Book List</h1>
+        <form action="/books" method="GET" class="mt-5 row d-flex justify-content-between">
+          <div class="col-lg-2 col-md-6 mb-3">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" name="title" id="title" placeholder="Filter by Title"
+                value="<%= filters.title %>">
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-3">
+            <div class="form-group">
+              <label for="author">Author</label>
+              <input type="text" class="form-control" name="author" id="author" placeholder="Filter by Author"
+                value="<%= filters.author %>">
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-3">
+            <div class="form-group">
+              <label for="genre">Genre</label>
+              <select class="form-control" name="genre">
+                <option value="">Filter by Genre</option>
+                <% genres.forEach(genre=> { %>
+                  <option value="<%= genre %>" <%=filters.genre===genre ? 'selected' : '' %>>
+                    <%= genre %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mb-3">
+            <div class="form-group">
+              <label for="publication_date">Publication Date</label>
+              <input type="date" class="form-control" name="publication_date" id="publication_date"
+                value="<%= filters.publication_date %>">
+            </div>
+          </div>
+
+          <div class="col-auto align-self-center ms-auto">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="/books" class="btn btn-secondary">Clear</a>
+          </div>
+        </form>
+
+
+        <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+          <a href="/addBook" class="btn btn-success">Add Book</a>
+          <form action="/export" method="GET" class="d-flex">
+            <div class="form-group me-2">
+              <select name="format" id="format" class="form-select">
+                <option value="csv">CSV</option>
+                <option value="json">JSON</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Export</button>
+          </form>
+        </div>
+
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Publication Date</th>
+                <th>ISBN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(books.length===0) { %>
+                <tr>
+                  <td colspan="5" class="text-center">No books found</td>
+                </tr>
+                <% } else { %>
+                  <% books.forEach(book=> { %>
+                    <tr>
+                      <td>
+                        <%= book.title %>
+                      </td>
+                      <td>
+                        <%= book.author %>
+                      </td>
+                      <td>
+                        <%= book.genre %>
+                      </td>
+                      <td>
+                        <%= book.publication_date %>
+                      </td>
+                      <td>
+                        <%= book.isbn %>
+                      </td>
+                    </tr>
+                    <% })} %>
+            </tbody>
+          </table>
+        </div>
+    </main>
+
+    <%- include('layouts/footer.html') %>
+
+      <!-- import jquery and bootstrap.js-->
+      <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+      <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
